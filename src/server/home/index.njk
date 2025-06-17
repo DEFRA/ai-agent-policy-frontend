@@ -1,5 +1,8 @@
 {% extends 'layouts/page.njk' %}
 
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
 {% block content %}
   {{ appHeading({
     text: heading,
@@ -27,6 +30,43 @@
             <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"/>
           </svg>
         </a>
+      </div>
+
+      {# View previous analysis section #}
+      <div class="govuk-inset-text" data-testid="app-view-analysis">
+        <h2 class="govuk-heading-s">View Previous Analysis</h2>
+        <p class="govuk-body-s">
+          Already submitted a question? Enter your analysis code to view detailed results.
+        </p>
+        
+        <form action="/semantic-output" method="post" class="govuk-!-margin-bottom-0" data-testid="analysis-code-form">
+          <div class="govuk-form-group">
+            {{ govukInput({
+              name: "code",
+              id: "analysis-code",
+              label: {
+                text: "Analysis code",
+                classes: "govuk-label--s govuk-visually-hidden"
+              },
+              hint: {
+                text: "Enter the code provided after submitting your question"
+              },
+              attributes: {
+                "placeholder": "Enter analysis code",
+                "data-testid": "analysis-code-input"
+              }
+            }) }}
+          </div>
+          
+          {{ govukButton({
+            text: "View analysis",
+            type: "submit",
+            classes: "govuk-button--secondary",
+            attributes: {
+              "data-testid": "view-analysis-button"
+            }
+          }) }}
+        </form>
       </div>
 
       {# Secondary information section #}
