@@ -1,0 +1,80 @@
+{% extends 'layouts/page.njk' %}
+
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% block content %}
+  {% if errorSummary %}
+    {{ govukErrorSummary(errorSummary) }}
+  {% endif %}
+
+  {{ appHeading({
+    text: heading,
+    caption: "Get AI-powered insights and assistance for your parliamentary questions."
+  }) }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      
+      {{ govukInsetText({
+        text: "Our AI system will search through existing policy documents and provide relevant guidance based on your question."
+      }) }}
+
+      <form action="/parliamentary-question" method="post" data-testid="parliamentary-question-form">
+        
+        {{ govukTextarea({
+          name: "question",
+          id: "question",
+          label: {
+            text: "Parliamentary question",
+            classes: "govuk-label--s"
+          },
+          hint: {
+            text: "Enter the full text of your parliamentary question. For example: 'To ask the Secretary of State for Environment, Food and Rural Affairs, what steps the Government is taking to reduce food waste in the UK.'"
+          },
+          value: formData.question if formData,
+          rows: 8,
+          errorMessage: errors.question if errors,
+          attributes: {
+            "data-testid": "question-textarea"
+          }
+        }) }}
+
+        <div class="govuk-button-group">
+          {{ govukButton({
+            text: "Submit question",
+            type: "submit",
+            attributes: {
+              "data-module": "govuk-button",
+              "data-testid": "submit-button"
+            }
+          }) }}
+          
+          <a class="govuk-link" href="/" data-testid="cancel-link">Cancel</a>
+        </div>
+
+      </form>
+
+      <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            How this works
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          <p>When you submit a parliamentary question, our AI system will:</p>
+          <ul>
+            <li>Search through existing policy documents and guidance</li>
+            <li>Find relevant information and precedents</li>
+            <li>Provide structured insights and recommendations</li>
+            <li>Highlight key policy areas and considerations</li>
+          </ul>
+          <p>This service is designed to assist with parliamentary question preparation and does not replace official guidance or procedures.</p>
+        </div>
+      </details>
+
+    </div>
+  </div>
+{% endblock %} 

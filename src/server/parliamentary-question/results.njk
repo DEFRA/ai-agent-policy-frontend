@@ -1,0 +1,113 @@
+{% extends 'layouts/page.njk' %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% block content %}
+  {{ appHeading({
+    text: heading,
+    caption: "AI-powered analysis and insights for your parliamentary question."
+  }) }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      
+      <h2 class="govuk-heading-m">Your question</h2>
+      {{ govukInsetText({
+        text: question
+      }) }}
+
+      <h2 class="govuk-heading-m">AI Analysis and Insights</h2>
+      
+      {% if response %}
+        <div class="govuk-body" data-testid="ai-response">
+          {% if response.summary %}
+            <h3 class="govuk-heading-s">Summary</h3>
+            <p>{{ response.summary }}</p>
+          {% endif %}
+
+          {% if response.key_points %}
+            <h3 class="govuk-heading-s">Key Points</h3>
+            <ul>
+              {% for point in response.key_points %}
+                <li>{{ point }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+          {% if response.recommendations %}
+            <h3 class="govuk-heading-s">Recommendations</h3>
+            <ul>
+              {% for recommendation in response.recommendations %}
+                <li>{{ recommendation }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+          {% if response.related_policies %}
+            <h3 class="govuk-heading-s">Related Policies</h3>
+            <ul>
+              {% for policy in response.related_policies %}
+                <li>{{ policy }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+          {% if response.sources %}
+            <h3 class="govuk-heading-s">Sources</h3>
+            <ul>
+              {% for source in response.sources %}
+                <li>{{ source }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+          {# Fallback for generic response format #}
+          {% if not response.summary and not response.key_points %}
+            {% if response.answer %}
+              <p>{{ response.answer }}</p>
+            {% elif response.response %}
+              <p>{{ response.response }}</p>
+            {% else %}
+              <pre class="govuk-body-s">{{ response | dump | safe }}</pre>
+            {% endif %}
+          {% endif %}
+        </div>
+      {% else %}
+        <p class="govuk-body">No response received from the AI system.</p>
+      {% endif %}
+
+      <div class="govuk-button-group">
+        {{ govukButton({
+          text: "Ask another question",
+          href: "/parliamentary-question",
+          classes: "govuk-button--secondary",
+          attributes: {
+            "data-testid": "ask-another-button"
+          }
+        }) }}
+        
+        <a class="govuk-link" href="/" data-testid="home-link">Return to home</a>
+      </div>
+
+      <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            About this analysis
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          <p>This analysis is generated using AI and should be used as guidance only. It is based on:</p>
+          <ul>
+            <li>Existing policy documents and parliamentary guidance</li>
+            <li>Similar parliamentary questions and responses</li>
+            <li>Relevant government publications and statements</li>
+          </ul>
+          <p>Always verify information with official sources and follow established parliamentary procedures.</p>
+        </div>
+      </details>
+
+    </div>
+  </div>
+{% endblock %} 
