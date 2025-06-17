@@ -42,6 +42,12 @@ export const config = convict({
     format: String,
     default: 'ai-agent-policy-frontend'
   },
+  apiServer: {
+    doc: 'Backend API server URL',
+    format: String,
+    default: 'http://localhost:8000',
+    env: 'BACKEND_API_URL'
+  },
   root: {
     doc: 'Project root',
     format: String,

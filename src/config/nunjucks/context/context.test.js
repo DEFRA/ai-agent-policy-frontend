@@ -43,6 +43,11 @@ describe('#context', () => {
           },
           {
             current: false,
+            text: 'Parliamentary Questions',
+            href: '/parliamentary-question'
+          },
+          {
+            current: false,
             text: 'About',
             href: '/about'
           }
@@ -129,6 +134,11 @@ describe('#context cache', () => {
             current: true,
             text: 'Home',
             href: '/'
+          },
+          {
+            current: false,
+            text: 'Parliamentary Questions',
+            href: '/parliamentary-question'
           },
           {
             current: false,

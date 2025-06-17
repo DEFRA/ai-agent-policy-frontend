@@ -9,6 +9,11 @@ export function buildNavigation(request) {
       current: request?.path === '/'
     },
     {
+      text: 'Parliamentary Questions',
+      href: '/parliamentary-question',
+      current: request?.path?.startsWith('/parliamentary-question')
+    },
+    {
       text: 'About',
       href: '/about',
       current: request?.path === '/about'
