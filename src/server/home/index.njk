@@ -2,11 +2,12 @@
 
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% block content %}
   {{ appHeading({
     text: heading,
-    caption: "AI-powered parliamentary question insights and assistance."
+    caption: "An agentic generative AI workflow that helps draft parliamentary questions by analyzing past PQs and generating high-quality responses."
   }) }}
 
   <div class="govuk-grid-row">
@@ -16,7 +17,7 @@
       <div class="govuk-inset-text" data-testid="app-main-cta">
         <h2 class="govuk-heading-m">Submit a Parliamentary Question</h2>
         <p class="govuk-body">
-          Get AI-powered insights and assistance for your parliamentary questions. Our system searches through existing policy documents and provides relevant guidance.
+          Get AI-powered assistance to draft high-quality parliamentary question responses based on past PQs and policy documents.
         </p>
         
         <a href="/parliamentary-question" 
@@ -69,41 +70,24 @@
         </form>
       </div>
 
-      {# Secondary information section #}
-      <details class="govuk-details" data-module="govuk-details">
-        <summary class="govuk-details__summary">
-          <span class="govuk-details__summary-text">
-            About this service
-          </span>
-        </summary>
-        <div class="govuk-details__text" data-testid="app-page-body">
-          <p>
-            Welcome to the AI Agent Policy Frontend, a service built on the Core Delivery Platform Node.js Frontend Template 🚀
-          </p>
-          <p>
-            Based on <a href="https://defra.github.io/software-development-standards">DEFRA</a> and <a
-              href="https://design-system.service.gov.uk/">GOV.UK</a> best practices this service provides AI-powered assistance for parliamentary questions.
-          </p>
-          <p>This service includes:</p>
-          <ul>
-            <li>Semantic search through policy documents</li>
-            <li>AI-powered question analysis and response</li>
-            <li>
-              <a href="https://frontend.design-system.service.gov.uk/">GOV.UK Frontend</a>
-            </li>
-            <li>
-              <a href="https://hapi.dev">Hapi.js</a>
-            </li>
-            <li>
-              <a href="https://mozilla.github.io/nunjucks/">Nunjucks</a>
-            </li>
-            <li>
-              <a href="https://github.com/mozilla/node-convict">Node Convict</a>
-            </li>
-            <li>and lots more... 😎</li>
+      {# How it works section #}
+      {{ govukDetails({
+        summaryText: "How it works",
+        html: '
+          <p>When you submit a parliamentary question, our AI system will:</p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>Search through existing policy documents and past PQs</li>
+            <li>Find relevant information and precedents</li>
+            <li>Filter and highlight key information</li>
+            <li>Generate a draft response based on past examples</li>
+            <li>Quality check the response for tone, facts, and clarity</li>
+            <li>Adapt and improve based on quality assessment</li>
+            <li>Provide a template answer with supporting information</li>
           </ul>
-        </div>
-      </details>
+          <p class="govuk-body-s">This service is designed to assist with parliamentary question preparation and does not replace official guidance or procedures.</p>
+        '
+      }) }}
+
     </div>
   </div>
 

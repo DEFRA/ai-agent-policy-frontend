@@ -68,20 +68,6 @@
         {% if data.semantic_search and data.semantic_search.results %}
           <p class="govuk-body-s">Past PQs about similar topics.</p>
           
-          {# TEMPORARY DEBUG - Remove after checking #}
-          <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary">
-              <span class="govuk-details__summary-text">
-                Debug: Check UIN values
-              </span>
-            </summary>
-            <div class="govuk-details__text">
-              {% for result in data.semantic_search.results %}
-                <p><strong>Result {{ loop.index }}:</strong> UIN = "{{ result.uin }}" | ID = "{{ result.id }}"</p>
-              {% endfor %}
-            </div>
-          </details>
-          
           {% set tableRows = [] %}
           {% for result in data.semantic_search.results %}
             {% set tableRows = (tableRows.push([
