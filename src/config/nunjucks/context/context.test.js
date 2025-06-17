@@ -47,7 +47,7 @@ describe('#context', () => {
             href: '/about'
           }
         ],
-        serviceName: 'cdp-node-frontend-template',
+        serviceName: 'ai-agent-policy-frontend',
         serviceUrl: '/'
       })
     })
@@ -136,7 +136,7 @@ describe('#context cache', () => {
             href: '/about'
           }
         ],
-        serviceName: 'cdp-node-frontend-template',
+        serviceName: 'ai-agent-policy-frontend',
         serviceUrl: '/'
       })
     })
