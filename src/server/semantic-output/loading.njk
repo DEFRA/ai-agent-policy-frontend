@@ -1,0 +1,161 @@
+{% extends 'layouts/page.njk' %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% block content %}
+  {{ appHeading({
+    text: heading,
+    caption: "Your analysis is being processed. This page will update automatically when complete."
+  }) }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      
+      {{ govukInsetText({
+        html: '<div id="status-message">
+          <div class="app-loading-spinner" aria-hidden="true"></div>
+          <strong>Analysis in progress...</strong><br>
+          <span id="status-detail">Processing your parliamentary question analysis. This usually takes 2-3 minutes.</span>
+        </div>',
+        classes: "govuk-inset-text--info"
+      }) }}
+
+      <div id="progress-section">
+        <h2 class="govuk-heading-s">What's happening</h2>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>Searching through parliamentary question archives</li>
+          <li>Extracting key facts and information</li>
+          <li>Generating AI-powered analysis and recommendations</li>
+          <li>Formatting results for display</li>
+        </ul>
+        
+        <details class="govuk-details" data-module="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              What if this takes too long?
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            <p>If the analysis is taking longer than expected:</p>
+            <ul>
+              <li>You can safely bookmark this page and return later</li>
+              <li>Refresh the page manually to check for updates</li>
+              <li>Contact support if the analysis doesn't complete within 10 minutes</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+
+      <div class="govuk-button-group">
+        <a href="/semantic-output/{{ tag }}" 
+           class="govuk-button govuk-button--secondary" 
+           data-testid="refresh-button">
+          Refresh page
+        </a>
+        
+        <a class="govuk-link" href="/parliamentary-question" data-testid="new-question-link">
+          Submit another question
+        </a>
+      </div>
+
+      <noscript>
+        <div class="govuk-warning-text">
+          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+          <strong class="govuk-warning-text__text">
+            <span class="govuk-warning-text__assistive">Warning</span>
+            JavaScript is disabled. Please refresh this page manually to check if your analysis is complete.
+          </strong>
+        </div>
+      </noscript>
+
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      'use strict';
+      
+      const tag = '{{ tag }}';
+      const statusElement = document.getElementById('status-detail');
+      const messageElement = document.getElementById('status-message');
+      let pollCount = 0;
+      let maxPolls = 120; // 10 minutes at 5-second intervals
+      
+      function updateStatus(message) {
+        if (statusElement) {
+          statusElement.textContent = message;
+        }
+      }
+      
+      function pollStatus() {
+        pollCount++;
+        
+        fetch(`/api/semantic-output/${encodeURIComponent(tag)}/status`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === 'complete') {
+              updateStatus('Analysis complete! Redirecting...');
+              setTimeout(() => {
+                window.location.reload();
+              }, 1000);
+            } else if (data.status === 'processing') {
+              const minutes = Math.floor(pollCount * 5 / 60);
+              const seconds = (pollCount * 5) % 60;
+              const timeStr = minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s`;
+              updateStatus(`Still processing... (${timeStr} elapsed)`);
+              
+              if (pollCount < maxPolls) {
+                setTimeout(pollStatus, 5000); // Poll every 5 seconds
+              } else {
+                updateStatus('Analysis is taking longer than expected. Please refresh the page manually or try again later.');
+                if (messageElement) {
+                  messageElement.innerHTML = '<strong>⚠️ Analysis timeout</strong><br><span id="status-detail">The analysis is taking longer than expected. Please refresh the page manually.</span>';
+                }
+              }
+            } else if (data.status === 'error') {
+              updateStatus('An error occurred. Please refresh the page or try again.');
+              if (messageElement) {
+                messageElement.innerHTML = '<strong>❌ Error occurred</strong><br><span id="status-detail">Unable to check analysis status. Please refresh the page.</span>';
+              }
+            }
+          })
+          .catch(error => {
+            console.error('Polling error:', error);
+            updateStatus('Connection error. Please refresh the page manually.');
+            
+            // Continue polling on network errors (might be temporary)
+            if (pollCount < maxPolls) {
+              setTimeout(pollStatus, 10000); // Wait longer on errors
+            }
+          });
+      }
+      
+      // Start polling after a short delay
+      setTimeout(pollStatus, 2000);
+      
+      // Update initial message
+      updateStatus('Starting analysis check...');
+    })();
+  </script>
+
+  <style>
+    .app-loading-spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #f3f3f3;
+      border-top: 2px solid #1d70b8;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+
+{% endblock %} 

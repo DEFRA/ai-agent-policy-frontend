@@ -1,0 +1,55 @@
+{% extends 'layouts/page.njk' %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% block content %}
+  {{ appHeading({
+    text: heading,
+    caption: "The analysis code you entered could not be found."
+  }) }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      
+      {{ govukInsetText({
+        text: "Analysis code: " + tag,
+        classes: "govuk-inset-text--warning"
+      }) }}
+
+      <p class="govuk-body">This could be because:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>The code was entered incorrectly</li>
+        <li>The analysis has expired or been removed</li>
+        <li>The code does not exist</li>
+      </ul>
+
+      <h2 class="govuk-heading-s">What you can do</h2>
+      <p class="govuk-body">Check your analysis code and try again, or submit a new parliamentary question for analysis.</p>
+
+      <div class="govuk-button-group">
+        {{ govukButton({
+          text: "Try another code",
+          href: "/semantic-output",
+          classes: "govuk-button--secondary",
+          attributes: {
+            "data-testid": "try-again-button"
+          }
+        }) }}
+        
+        {{ govukButton({
+          text: "Submit new question",
+          href: "/parliamentary-question",
+          attributes: {
+            "data-testid": "new-question-button"
+          }
+        }) }}
+      </div>
+
+      <p class="govuk-body">
+        <a class="govuk-link" href="/" data-testid="home-link">Return to home</a>
+      </p>
+
+    </div>
+  </div>
+{% endblock %} 

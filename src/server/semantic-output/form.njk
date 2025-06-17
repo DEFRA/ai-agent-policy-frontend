@@ -1,0 +1,78 @@
+{% extends 'layouts/page.njk' %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% block content %}
+  {% if errorSummary %}
+    {{ govukErrorSummary(errorSummary) }}
+  {% endif %}
+
+  {{ appHeading({
+    text: heading,
+    caption: "Enter your analysis code to view detailed results."
+  }) }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      
+      {{ govukInsetText({
+        text: "Enter the analysis code you received after submitting a parliamentary question to view the detailed results and insights."
+      }) }}
+
+      <form action="/semantic-output" method="post" data-testid="semantic-output-form">
+        
+        {{ govukInput({
+          name: "code",
+          id: "code",
+          label: {
+            text: "Analysis code",
+            classes: "govuk-label--s"
+          },
+          hint: {
+            text: "This is the code provided to you after submitting a parliamentary question for analysis."
+          },
+          value: formData.code if formData,
+          errorMessage: errors.code if errors,
+          attributes: {
+            "data-testid": "code-input"
+          }
+        }) }}
+
+        <div class="govuk-button-group">
+          {{ govukButton({
+            text: "View analysis",
+            type: "submit",
+            attributes: {
+              "data-module": "govuk-button",
+              "data-testid": "submit-button"
+            }
+          }) }}
+          
+          <a class="govuk-link" href="/" data-testid="cancel-link">Cancel</a>
+        </div>
+
+      </form>
+
+      <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Don't have an analysis code?
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          <p>Analysis codes are provided when you submit a parliamentary question for AI-powered analysis.</p>
+          <p>To get an analysis code:</p>
+          <ul>
+            <li><a href="/parliamentary-question">Submit a new parliamentary question</a></li>
+            <li>Complete the analysis process</li>
+            <li>You'll receive a unique code to access your detailed results</li>
+          </ul>
+        </div>
+      </details>
+
+    </div>
+  </div>
+{% endblock %} 

@@ -1,0 +1,139 @@
+{% extends 'layouts/page.njk' %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% block content %}
+  {{ appHeading({
+    text: heading,
+    caption: "Detailed analysis results for your parliamentary question."
+  }) }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      
+      {% if data and data.query %}
+        <h2 class="govuk-heading-m">Your question</h2>
+        {{ govukInsetText({
+          text: data.query
+        }) }}
+      {% endif %}
+
+      {% if data and data.final_answer %}
+        <h2 class="govuk-heading-m">Suggested answer</h2>
+        <div class="govuk-body" data-testid="final-answer">
+          <p class="govuk-body-s">Answer is based on facts and past PQs for similar topics.</p>
+          <div class="govuk-!-margin-bottom-6">
+            {{ data.final_answer | safe }}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if data %}
+        {# Facts section #}
+        <h2 class="govuk-heading-m">Facts</h2>
+        {% if data.parsed_key_information and data.parsed_key_information.length > 0 %}
+          <p class="govuk-body-s">Key facts identified from previous PQs.</p>
+          
+          {% set factRows = [] %}
+          {% for fact in data.parsed_key_information %}
+            {% set factRows = (factRows.push([
+              {
+                html: '<div>
+                        <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">' + fact.text + '</p>' +
+                        (('<p class="govuk-body-s govuk-!-margin-bottom-0">UIN: ' + fact.uin + '</p>') if fact.uin else '') +
+                        (('<p class="govuk-body-s govuk-!-margin-bottom-0">Date Tabled: ' + fact.date + '</p>') if fact.date else '') +
+                        '</div>'
+              }
+            ]), factRows) %}
+          {% endfor %}
+
+          {{ govukTable({
+            head: [
+              {
+                text: "Key Facts"
+              }
+            ],
+            rows: factRows,
+            classes: "govuk-table--small-text"
+          }) }}
+        {% else %}
+          <p class="govuk-body">No key facts available for this analysis.</p>
+        {% endif %}
+
+        {# Past PQs section #}
+        <h2 class="govuk-heading-m">Past PQs</h2>
+        
+        {% if data.semantic_search and data.semantic_search.results %}
+          <p class="govuk-body-s">Past PQs about similar topics.</p>
+          
+          {# TEMPORARY DEBUG - Remove after checking #}
+          <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">
+                Debug: Check UIN values
+              </span>
+            </summary>
+            <div class="govuk-details__text">
+              {% for result in data.semantic_search.results %}
+                <p><strong>Result {{ loop.index }}:</strong> UIN = "{{ result.uin }}" | ID = "{{ result.id }}"</p>
+              {% endfor %}
+            </div>
+          </details>
+          
+          {% set tableRows = [] %}
+          {% for result in data.semantic_search.results %}
+            {% set tableRows = (tableRows.push([
+              {
+                html: '<div>
+                        <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">' + (result.question | truncate(400)) + '</p>
+                        <p class="govuk-body-s govuk-!-margin-bottom-0">UIN: ' + result.uin + '</p>
+                      </div>'
+              },
+              {
+                text: ((result.score * 100) | round(1)) + '%',
+                classes: 'govuk-table__cell--numeric'
+              }
+            ]), tableRows) %}
+          {% endfor %}
+
+          {{ govukTable({
+            head: [
+              {
+                text: "Parliamentary Question"
+              },
+              {
+                text: "Relevance",
+                classes: 'govuk-table__header--numeric'
+              }
+            ],
+            rows: tableRows,
+            classes: "govuk-table--small-text"
+          }) }}
+
+          <p class="govuk-body-s">Showing {{ data.semantic_search.results | length }} of {{ data.semantic_search.total_results }} results.</p>
+        {% else %}
+          <p class="govuk-body">No similar past parliamentary questions found.</p>
+        {% endif %}
+        
+      {% else %}
+        <p class="govuk-body">No analysis data available.</p>
+      {% endif %}
+
+      <div class="govuk-button-group">
+        {{ govukButton({
+          text: "Enter a new PQ",
+          href: "/parliamentary-question",
+          classes: "govuk-button--start",
+          attributes: {
+            "data-testid": "new-pq-button"
+          }
+        }) }}
+        
+        <a class="govuk-link" href="/semantic-output" data-testid="view-another-link">View another analysis</a>
+      </div>
+
+    </div>
+  </div>
+{% endblock %} 
