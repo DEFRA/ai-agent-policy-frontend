@@ -38,21 +38,21 @@ describe('#context', () => {
         navigation: [
           {
             current: true,
-            text: 'Home',
-            href: '/'
+            href: '/',
+            text: 'Home'
           },
           {
             current: false,
-            text: 'Parliamentary Questions',
-            href: '/parliamentary-question'
+            href: '/parliamentary-question',
+            text: 'Parliamentary Questions'
           },
           {
             current: false,
-            text: 'About',
-            href: '/about'
+            href: '/about',
+            text: 'About'
           }
         ],
-        serviceName: 'ai-agent-policy-frontend',
+        serviceName: 'Generative AI Parliamentary Question Response Generator',
         serviceUrl: '/'
       })
     })
@@ -132,21 +132,21 @@ describe('#context cache', () => {
         navigation: [
           {
             current: true,
-            text: 'Home',
-            href: '/'
+            href: '/',
+            text: 'Home'
           },
           {
             current: false,
-            text: 'Parliamentary Questions',
-            href: '/parliamentary-question'
+            href: '/parliamentary-question',
+            text: 'Parliamentary Questions'
           },
           {
             current: false,
-            text: 'About',
-            href: '/about'
+            href: '/about',
+            text: 'About'
           }
         ],
-        serviceName: 'ai-agent-policy-frontend',
+        serviceName: 'Generative AI Parliamentary Question Response Generator',
         serviceUrl: '/'
       })
     })

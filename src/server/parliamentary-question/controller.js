@@ -69,25 +69,17 @@ export const submitQuestionController = {
       // Call the backend API
       const apiResponse = await callSemanticChatAPI(request, question)
 
-      return h.view('parliamentary-question/results', {
-        pageTitle: 'Parliamentary Question Results',
-        heading: 'Parliamentary Question Results',
-        breadcrumbs: [
-          {
-            text: 'Home',
-            href: '/'
-          },
-          {
-            text: 'Parliamentary Questions',
-            href: '/parliamentary-question'
-          },
-          {
-            text: 'Results'
-          }
-        ],
-        question,
-        response: apiResponse
-      })
+      // Extract the code from the response and redirect to semantic-output
+      if (apiResponse?.message) {
+        const code = apiResponse.message
+        request.logger.info('Redirecting to semantic output with code', {
+          code
+        })
+        return h.redirect(`/semantic-output/${encodeURIComponent(code)}`)
+      }
+
+      // Fallback if no message/code in response
+      throw new Error('No code received from API response')
     } catch (error) {
       request.logger.error('Error processing parliamentary question', error)
 

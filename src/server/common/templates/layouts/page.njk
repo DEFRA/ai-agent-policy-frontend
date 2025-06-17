@@ -11,6 +11,21 @@
 
 {% block head %}
   <link href="{{ getAssetPath('stylesheets/application.scss') }}" rel="stylesheet">
+  <style>
+    .app-banner {
+      background-color: #fff2bf;
+      border-bottom: 1px solid #b1b4b6;
+      padding: 10px 0;
+      text-align: center;
+    }
+    .app-banner__text {
+      color: #0b0c0c;
+      font-family: "GDS Transport", arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.25;
+      margin: 0;
+    }
+  </style>
 {% endblock %}
 
 {% block header %}
@@ -27,6 +42,10 @@
   {{ govukServiceNavigation({
     navigation: navigation
   }) }}
+
+  <div class="app-banner">
+    <p class="app-banner__text">This is a proof of concept system and is not intended for production use</p>
+  </div>
 {% endblock %}
 
 {% block pageTitle %}
