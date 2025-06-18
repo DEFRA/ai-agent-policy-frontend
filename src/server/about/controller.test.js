@@ -20,7 +20,9 @@ describe('#aboutController', () => {
       url: '/about'
     })
 
-    expect(result).toEqual(expect.stringContaining('About |'))
+    expect(result).toEqual(
+      expect.stringContaining('AI agents in Defra Policy |')
+    )
     expect(statusCode).toBe(statusCodes.ok)
   })
 })
