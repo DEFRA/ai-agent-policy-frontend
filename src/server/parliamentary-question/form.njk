@@ -13,14 +13,14 @@
 
   {{ appHeading({
     text: heading,
-    caption: "Get AI-powered insights and assistance for your parliamentary questions."
+    caption: "Use AI-powered insights to search past parliamentary questions and help draft responses"
   }) }}
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       
       {{ govukInsetText({
-        text: "Our AI system will search through existing policy documents and provide relevant guidance based on your question."
+        text: "The AI agent system will search past lines and public data to provide information relevant to your question. Re-entering search criteria generates different results."
       }) }}
 
       <form action="/parliamentary-question" method="post" data-testid="parliamentary-question-form">
@@ -45,7 +45,7 @@
 
         <div class="govuk-button-group">
           {{ govukButton({
-            text: "Submit question",
+            text: "Start",
             type: "submit",
             attributes: {
               "data-module": "govuk-button",
@@ -70,6 +70,7 @@
             <li>Quality check the response for tone, facts, and clarity</li>
             <li>Adapt and improve based on quality assessment</li>
             <li>Provide a template answer with supporting information</li>
+            <li>Re-entering the same question can generate different final results</li>
           </ul>
           <p class="govuk-body-s">This service is designed to assist with parliamentary question preparation and does not replace official guidance or procedures.</p>
         '

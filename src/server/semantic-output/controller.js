@@ -128,8 +128,8 @@ export const showResultsController = {
           'Semantic Chat output not yet available, please try again soon.'
       ) {
         return h.view('semantic-output/loading', {
-          pageTitle: 'Analysis in Progress',
-          heading: 'Analysis in Progress',
+          pageTitle: 'Analysing',
+          heading: 'Analysing',
           breadcrumbs: [
             {
               text: 'Home',
@@ -157,8 +157,8 @@ export const showResultsController = {
       }
 
       return h.view('semantic-output/results', {
-        pageTitle: 'Analysis Results',
-        heading: 'Analysis Results',
+        pageTitle: 'Results',
+        heading: 'Results',
         breadcrumbs: [
           {
             text: 'Home',

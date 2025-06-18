@@ -6,8 +6,8 @@
 export const aboutController = {
   handler(_request, h) {
     return h.view('about/index', {
-      pageTitle: 'About',
-      heading: 'About',
+      pageTitle: 'AI agents in Defra Policy',
+      heading: 'AI agents in Defra Policy',
       breadcrumbs: [
         {
           text: 'Home',

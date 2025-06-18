@@ -22,9 +22,7 @@ describe('#errors', () => {
     })
 
     expect(result).toEqual(
-      expect.stringContaining(
-        'Page not found | Generative AI Parliamentary Question Response Generator'
-      )
+      expect.stringContaining('Page not found | Create policy communications')
     )
     expect(statusCode).toBe(statusCodes.notFound)
   })

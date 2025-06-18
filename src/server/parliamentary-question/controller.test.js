@@ -10,8 +10,8 @@ describe('#showFormController', () => {
     const result = showFormController.handler(mockRequest, mockH)
 
     expect(mockH.view).toHaveBeenCalledWith('parliamentary-question/form', {
-      pageTitle: 'Submit a Parliamentary Question',
-      heading: 'Submit a Parliamentary Question',
+      pageTitle: 'Generate a written parliamentary answer',
+      heading: 'Generate a written parliamentary answer',
       breadcrumbs: [
         {
           text: 'Home',
@@ -50,8 +50,8 @@ describe('#submitQuestionController', () => {
     const result = await submitQuestionController.handler(mockRequest, mockH)
 
     expect(mockH.view).toHaveBeenCalledWith('parliamentary-question/form', {
-      pageTitle: 'Submit a Parliamentary Question',
-      heading: 'Submit a Parliamentary Question',
+      pageTitle: 'Generate a written parliamentary answer',
+      heading: 'Generate a written parliamentary answer',
       breadcrumbs: [
         {
           text: 'Home',

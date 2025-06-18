@@ -6,7 +6,7 @@
 {% block content %}
   {{ appHeading({
     text: heading,
-    caption: "Your analysis is being processed. This page will update automatically when complete."
+    caption: "Your question is being processed, it may take up to 5 minutes. This page will update automatically when complete"
   }) }}
 
   <div class="govuk-grid-row">
@@ -15,7 +15,7 @@
       {{ govukInsetText({
         html: '<div id="status-message">
           <div class="app-loading-spinner" aria-hidden="true"></div>
-          <strong>Analysis in progress...</strong><br>
+          <strong>Analysing</strong><br>
           <span id="status-detail">Processing your parliamentary question analysis. This usually takes 2-3 minutes.</span>
         </div>',
         classes: "govuk-inset-text--info"
@@ -40,8 +40,8 @@
             <p>If the analysis is taking longer than expected:</p>
             <ul>
               <li>You can safely bookmark this page and return later</li>
-              <li>Refresh the page manually to check for updates</li>
-              <li>Contact support if the analysis doesn't complete within 10 minutes</li>
+              <li>Refresh the page to check for updates</li>
+              <li>Check your connection</li>
             </ul>
           </div>
         </details>
@@ -52,10 +52,6 @@
            class="govuk-button govuk-button--secondary" 
            data-testid="refresh-button">
           Refresh page
-        </a>
-        
-        <a class="govuk-link" href="/parliamentary-question" data-testid="new-question-link">
-          Submit another question
         </a>
       </div>
 

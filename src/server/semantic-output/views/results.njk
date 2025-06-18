@@ -7,7 +7,7 @@
 {% block content %}
   {{ appHeading({
     text: heading,
-    caption: "Detailed analysis results for your parliamentary question."
+    caption: "AI generated analysis for your parliamentary question"
   }) }}
 
   <div class="govuk-grid-row">
@@ -34,7 +34,7 @@
         {# Facts section #}
         <h2 class="govuk-heading-m">Facts</h2>
         {% if data.parsed_key_information and data.parsed_key_information.length > 0 %}
-          <p class="govuk-body-s">Key facts identified from previous PQs.</p>
+          <p class="govuk-body-s">Related information from previous parliamentary questions</p>
           
           {% set factRows = [] %}
           {% for fact in data.parsed_key_information %}
@@ -48,11 +48,6 @@
           {% endfor %}
 
           {{ govukTable({
-            head: [
-              {
-                text: "Key Facts"
-              }
-            ],
             rows: factRows,
             classes: "govuk-table--small-text"
           }) }}
@@ -64,7 +59,7 @@
         <h2 class="govuk-heading-m">Past PQs</h2>
         
         {% if data.semantic_search and data.semantic_search.results %}
-          <p class="govuk-body-s">Past PQs about similar topics.</p>
+          <p class="govuk-body-s">Past parliamentary questions about similar themes, in order of relevance.</p>
           
           {% set tableRows = [] %}
           {% for result in data.semantic_search.results %}
@@ -73,10 +68,6 @@
                 html: '<div>
                         <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">' + (result.question | truncate(400)) + '</p>
                       </div>'
-              },
-              {
-                text: ((result.score * 100) | round(1)) + '%',
-                classes: 'govuk-table__cell--numeric'
               }
             ]), tableRows) %}
           {% endfor %}
@@ -85,10 +76,6 @@
             head: [
               {
                 text: "Parliamentary Question"
-              },
-              {
-                text: "Relevance",
-                classes: 'govuk-table__header--numeric'
               }
             ],
             rows: tableRows,
@@ -113,8 +100,6 @@
             "data-testid": "new-pq-button"
           }
         }) }}
-        
-        <a class="govuk-link" href="/semantic-output" data-testid="view-another-link">View another analysis</a>
       </div>
 
     </div>
