@@ -52,7 +52,7 @@ describe('#context', () => {
             text: 'About'
           }
         ],
-        serviceName: 'Generative AI Parliamentary Question Response Generator',
+        serviceName: 'Create policy communications',
         serviceUrl: '/'
       })
     })
@@ -146,7 +146,7 @@ describe('#context cache', () => {
             text: 'About'
           }
         ],
-        serviceName: 'Generative AI Parliamentary Question Response Generator',
+        serviceName: 'Create policy communications',
         serviceUrl: '/'
       })
     })

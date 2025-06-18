@@ -8,8 +8,8 @@ import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 export const showFormController = {
   handler(request, h) {
     return h.view('parliamentary-question/form', {
-      pageTitle: 'Submit a Parliamentary Question',
-      heading: 'Submit a Parliamentary Question',
+      pageTitle: 'Generate a written parliamentary answer',
+      heading: 'Generate a written parliamentary answer',
       breadcrumbs: [
         {
           text: 'Home',
@@ -36,8 +36,8 @@ export const submitQuestionController = {
       if (!question?.trim()) {
         return h
           .view('parliamentary-question/form', {
-            pageTitle: 'Submit a Parliamentary Question',
-            heading: 'Submit a Parliamentary Question',
+            pageTitle: 'Generate a written parliamentary answer',
+            heading: 'Generate a written parliamentary answer',
             breadcrumbs: [
               {
                 text: 'Home',
@@ -85,8 +85,8 @@ export const submitQuestionController = {
 
       return h
         .view('parliamentary-question/form', {
-          pageTitle: 'Submit a Parliamentary Question',
-          heading: 'Submit a Parliamentary Question',
+          pageTitle: 'Generate a written parliamentary answer',
+          heading: 'Generate a written parliamentary answer',
           breadcrumbs: [
             {
               text: 'Home',

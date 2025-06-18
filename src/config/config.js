@@ -40,7 +40,7 @@ export const config = convict({
   serviceName: {
     doc: 'Applications Service Name',
     format: String,
-    default: 'Generative AI Parliamentary Question Response Generator'
+    default: 'Create policy communications'
   },
   apiServer: {
     doc: 'Backend API server URL',

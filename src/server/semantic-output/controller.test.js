@@ -171,8 +171,8 @@ describe('#showResultsController', () => {
     const result = await showResultsController.handler(mockRequest, mockH)
 
     expect(mockH.view).toHaveBeenCalledWith('semantic-output/loading', {
-      pageTitle: 'Analysis in Progress',
-      heading: 'Analysis in Progress',
+      pageTitle: 'Analysing',
+      heading: 'Analysing',
       breadcrumbs: [
         {
           text: 'Home',
@@ -214,8 +214,8 @@ describe('#showResultsController', () => {
     const result = await showResultsController.handler(mockRequest, mockH)
 
     expect(mockH.view).toHaveBeenCalledWith('semantic-output/results', {
-      pageTitle: 'Analysis Results',
-      heading: 'Analysis Results',
+      pageTitle: 'Results',
+      heading: 'Results',
       breadcrumbs: [
         {
           text: 'Home',
