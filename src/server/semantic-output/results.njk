@@ -7,14 +7,14 @@
 {% block content %}
   {{ appHeading({
     text: heading,
-    caption: "AI generated analysis for your parliamentary question. Save the url for this page to return later."
+    caption: "AI generated analysis for your parliamentary answer request. Save the url for this page to return later."
   }) }}
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
       
       {% if data and data.query %}
-        <h2 class="govuk-heading-m">Your question</h2>
+        <h2 class="govuk-heading-m">Your answer</h2>
         {{ govukInsetText({
           text: data.query
         }) }}
@@ -34,14 +34,14 @@
         {# Facts section #}
         <h2 class="govuk-heading-m">Facts</h2>
         {% if data.parsed_key_information and data.parsed_key_information.length > 0 %}
-          <p class="govuk-body-s">Related information from previous parliamentary questions</p>
+          <p class="govuk-body-s">Related information from previous parliamentary answers</p>
           
           {% set factRows = [] %}
           {% for fact in data.parsed_key_information %}
             {% set factRows = (factRows.push([
               {
                 html: '<div>
-                        <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">' + fact.text + '</p>' +
+                        <p class="govuk-body govuk-!-margin-bottom-1">' + fact.text + '</p>' +
                         (('<p class="govuk-body-s govuk-!-margin-bottom-0">UIN: ' + fact.uin + '</p>') if fact.uin else '') +
                         (('<p class="govuk-body-s govuk-!-margin-bottom-0">Date Tabled: ' + fact.date + '</p>') if fact.date else '') +
                         '</div>'
@@ -61,11 +61,11 @@
         <h2 class="govuk-heading-m">Past PQs</h2>
         
         {% if data.semantic_search and data.semantic_search.results %}
-          <p class="govuk-body-s">Past parliamentary questions about similar themes, in order of relevance.</p>
+          <p class="govuk-body-s">Past parliamentary answers about similar themes, in order of relevance.</p>
           
           {% set tableRows = [] %}
           {% for result in data.semantic_search.results %}
-            {% set questionHtml = '<p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">' + (result.question | truncate(400)) + '</p>' %}
+            {% set questionHtml = '<p class="govuk-body govuk-!-margin-bottom-1">' + (result.question | truncate(400)) + '</p>' %}
             {% set answerHtml = '' %}
             {% if result.answer and result.answer.trim() %}
               {% set answerHtml = '<details class="govuk-details" data-module="govuk-details">
@@ -88,7 +88,7 @@
           {{ govukTable({
             head: [
               {
-                text: "Parliamentary Question"
+                text: "Parliamentary Answer"
               }
             ],
             rows: tableRows,
@@ -97,7 +97,7 @@
 
           <p class="govuk-body-s">Showing {{ data.semantic_search.results | length }} of {{ data.semantic_search.total_results }} results.</p>
         {% else %}
-          <p class="govuk-body">No similar past parliamentary questions found.</p>
+          <p class="govuk-body">No similar past parliamentary answers found.</p>
         {% endif %}
         
       {% else %}
@@ -106,11 +106,11 @@
 
       <div class="govuk-button-group">
         {{ govukButton({
-          text: "Enter a new PQ",
-          href: "/parliamentary-question",
-          classes: "govuk-button--start",
+          text: "Generate another answer",
+          href: "/parliamentary-answer",
+          classes: "govuk-button--secondary",
           attributes: {
-            "data-testid": "new-pq-button"
+            "data-testid": "new-answer-button"
           }
         }) }}
       </div>

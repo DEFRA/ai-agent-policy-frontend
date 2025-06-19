@@ -136,10 +136,6 @@ export const showResultsController = {
               href: '/'
             },
             {
-              text: 'View Analysis Results',
-              href: '/semantic-output'
-            },
-            {
               text: 'Loading'
             }
           ],
@@ -165,10 +161,6 @@ export const showResultsController = {
             href: '/'
           },
           {
-            text: 'View Analysis Results',
-            href: '/semantic-output'
-          },
-          {
             text: 'Results'
           }
         ],
@@ -186,10 +178,6 @@ export const showResultsController = {
             {
               text: 'Home',
               href: '/'
-            },
-            {
-              text: 'View Analysis Results',
-              href: '/semantic-output'
             },
             {
               text: 'Error'

@@ -7,7 +7,7 @@
 {% block content %}
   {{ appHeading({
     text: heading,
-    caption: "AI generated analysis for your parliamentary question"
+    caption: "AI generated analysis for your parliamentary answer request"
   }) }}
 
   <div class="govuk-grid-row">
@@ -34,7 +34,7 @@
         {# Facts section #}
         <h2 class="govuk-heading-m">Facts</h2>
         {% if data.parsed_key_information and data.parsed_key_information.length > 0 %}
-          <p class="govuk-body-s">Related information from previous parliamentary questions</p>
+          <p class="govuk-body-s">Related information from previous parliamentary answers</p>
           
           {% set factRows = [] %}
           {% for fact in data.parsed_key_information %}
@@ -59,7 +59,7 @@
         <h2 class="govuk-heading-m">Past PQs</h2>
         
         {% if data.semantic_search and data.semantic_search.results %}
-          <p class="govuk-body-s">Past parliamentary questions about similar themes, in order of relevance.</p>
+          <p class="govuk-body-s">Past parliamentary answers about similar themes, in order of relevance.</p>
           
           {% set tableRows = [] %}
           {% for result in data.semantic_search.results %}
@@ -75,7 +75,7 @@
           {{ govukTable({
             head: [
               {
-                text: "Parliamentary Question"
+                text: "Parliamentary Answer"
               }
             ],
             rows: tableRows,
@@ -84,7 +84,7 @@
 
           <p class="govuk-body-s">Showing {{ data.semantic_search.results | length }} of {{ data.semantic_search.total_results }} results.</p>
         {% else %}
-          <p class="govuk-body">No similar past parliamentary questions found.</p>
+          <p class="govuk-body">No similar past parliamentary answers found.</p>
         {% endif %}
         
       {% else %}
@@ -93,11 +93,11 @@
 
       <div class="govuk-button-group">
         {{ govukButton({
-          text: "Enter a new PQ",
-          href: "/parliamentary-question",
-          classes: "govuk-button--start",
+          text: "Generate another answer",
+          href: "/parliamentary-answer",
+          classes: "govuk-button--secondary",
           attributes: {
-            "data-testid": "new-pq-button"
+            "data-testid": "new-answer-button"
           }
         }) }}
       </div>

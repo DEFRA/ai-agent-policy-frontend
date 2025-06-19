@@ -19,8 +19,8 @@ describe('#buildNavigation', () => {
       },
       {
         current: false,
-        text: 'Parliamentary Questions',
-        href: '/parliamentary-question'
+        text: 'Parliamentary Answers',
+        href: '/parliamentary-answer'
       },
       {
         current: false,
@@ -39,8 +39,8 @@ describe('#buildNavigation', () => {
       },
       {
         current: false,
-        text: 'Parliamentary Questions',
-        href: '/parliamentary-question'
+        text: 'Parliamentary Answers',
+        href: '/parliamentary-answer'
       },
       {
         current: false,
@@ -50,9 +50,9 @@ describe('#buildNavigation', () => {
     ])
   })
 
-  test('Should provide expected highlighted navigation details for parliamentary questions', () => {
+  test('Should provide expected highlighted navigation details for parliamentary answers', () => {
     expect(
-      buildNavigation(mockRequest({ path: '/parliamentary-question' }))
+      buildNavigation(mockRequest({ path: '/parliamentary-answer' }))
     ).toEqual([
       {
         current: false,
@@ -61,8 +61,8 @@ describe('#buildNavigation', () => {
       },
       {
         current: true,
-        text: 'Parliamentary Questions',
-        href: '/parliamentary-question'
+        text: 'Parliamentary Answers',
+        href: '/parliamentary-answer'
       },
       {
         current: false,
@@ -72,9 +72,9 @@ describe('#buildNavigation', () => {
     ])
   })
 
-  test('Should highlight parliamentary questions for sub-paths', () => {
+  test('Should highlight parliamentary answers for sub-paths', () => {
     expect(
-      buildNavigation(mockRequest({ path: '/parliamentary-question/results' }))
+      buildNavigation(mockRequest({ path: '/parliamentary-answer/results' }))
     ).toEqual([
       {
         current: false,
@@ -83,8 +83,8 @@ describe('#buildNavigation', () => {
       },
       {
         current: true,
-        text: 'Parliamentary Questions',
-        href: '/parliamentary-question'
+        text: 'Parliamentary Answers',
+        href: '/parliamentary-answer'
       },
       {
         current: false,

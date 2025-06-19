@@ -19,7 +19,7 @@
     <div class="govuk-grid-column-two-thirds">
       
       {{ govukInsetText({
-        text: "Enter the analysis code you received after submitting a parliamentary question to view the detailed results and insights."
+        text: "Enter the analysis code you received after submitting a parliamentary answer request to view the detailed results and insights."
       }) }}
 
       <form action="/semantic-output" method="post" data-testid="semantic-output-form">
@@ -32,7 +32,7 @@
             classes: "govuk-label--s"
           },
           hint: {
-            text: "This is the code provided to you after submitting a parliamentary question for analysis."
+            text: "This is the code provided to you after submitting a parliamentary answer request for analysis."
           },
           value: formData.code if formData,
           errorMessage: errors.code if errors,
@@ -63,12 +63,10 @@
           </span>
         </summary>
         <div class="govuk-details__text">
-          <p>Analysis codes are provided when you submit a parliamentary question for AI-powered analysis.</p>
-          <p>To get an analysis code:</p>
-          <ul>
-            <li><a href="/parliamentary-question">Submit a new parliamentary question</a></li>
-            <li>Complete the analysis process</li>
-            <li>You'll receive a unique code to access your detailed results</li>
+          <p>Analysis codes are provided when you submit a parliamentary answer request for AI-powered analysis.</p>
+          <p>If you don\'t have an analysis code:</p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li><a href="/parliamentary-answer">Submit a new parliamentary answer request</a></li>
           </ul>
         </div>
       </details>

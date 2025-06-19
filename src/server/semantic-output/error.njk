@@ -25,7 +25,7 @@
       </ul>
 
       <h2 class="govuk-heading-s">What you can do</h2>
-      <p class="govuk-body">Check your analysis code and try again, or submit a new parliamentary question for analysis.</p>
+      <p class="govuk-body">Check your analysis code and try again, or submit a new parliamentary answer request for analysis.</p>
 
       <div class="govuk-button-group">
         {{ govukButton({
@@ -38,10 +38,11 @@
         }) }}
         
         {{ govukButton({
-          text: "Submit new question",
-          href: "/parliamentary-question",
+          text: "Submit new request",
+          href: "/parliamentary-answer",
+          classes: "govuk-button--secondary",
           attributes: {
-            "data-testid": "new-question-button"
+            "data-testid": "new-request-button"
           }
         }) }}
       </div>

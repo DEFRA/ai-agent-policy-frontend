@@ -179,10 +179,6 @@ describe('#showResultsController', () => {
           href: '/'
         },
         {
-          text: 'View Analysis Results',
-          href: '/semantic-output'
-        },
-        {
           text: 'Loading'
         }
       ],
@@ -220,10 +216,6 @@ describe('#showResultsController', () => {
         {
           text: 'Home',
           href: '/'
-        },
-        {
-          text: 'View Analysis Results',
-          href: '/semantic-output'
         },
         {
           text: 'Results'
@@ -273,10 +265,6 @@ describe('#showResultsController', () => {
         {
           text: 'Home',
           href: '/'
-        },
-        {
-          text: 'View Analysis Results',
-          href: '/semantic-output'
         },
         {
           text: 'Error'

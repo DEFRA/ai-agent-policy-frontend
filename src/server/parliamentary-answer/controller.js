@@ -2,12 +2,12 @@ import { config } from '~/src/config/config.js'
 import { statusCodes } from '~/src/server/common/constants/status-codes.js'
 
 /**
- * Display the parliamentary question form
+ * Display the parliamentary answer form
  * @satisfies {Partial<ServerRoute>}
  */
 export const showFormController = {
   handler(request, h) {
-    return h.view('parliamentary-question/form', {
+    return h.view('parliamentary-answer/form', {
       pageTitle: 'Generate a written parliamentary answer',
       heading: 'Generate a written parliamentary answer',
       breadcrumbs: [
@@ -16,7 +16,7 @@ export const showFormController = {
           href: '/'
         },
         {
-          text: 'Parliamentary Questions'
+          text: 'Parliamentary Answers'
         }
       ]
     })
@@ -24,10 +24,10 @@ export const showFormController = {
 }
 
 /**
- * Process the parliamentary question form submission
+ * Process the parliamentary answer form submission
  * @satisfies {Partial<ServerRoute>}
  */
-export const submitQuestionController = {
+export const submitAnswerController = {
   handler: async (request, h) => {
     try {
       const { question } = request.payload || {}
@@ -35,7 +35,7 @@ export const submitQuestionController = {
       // Validate the question
       if (!question?.trim()) {
         return h
-          .view('parliamentary-question/form', {
+          .view('parliamentary-answer/form', {
             pageTitle: 'Generate a written parliamentary answer',
             heading: 'Generate a written parliamentary answer',
             breadcrumbs: [
@@ -44,21 +44,21 @@ export const submitQuestionController = {
                 href: '/'
               },
               {
-                text: 'Parliamentary Questions'
+                text: 'Parliamentary Answers'
               }
             ],
             errorSummary: {
               titleText: 'There is a problem',
               errorList: [
                 {
-                  text: 'Enter a parliamentary question',
+                  text: 'Enter a parliamentary answer request',
                   href: '#question'
                 }
               ]
             },
             errors: {
               question: {
-                text: 'Enter a parliamentary question'
+                text: 'Enter a parliamentary answer request'
               }
             },
             formData: { question }
@@ -81,10 +81,13 @@ export const submitQuestionController = {
       // Fallback if no message/code in response
       throw new Error('No code received from API response')
     } catch (error) {
-      request.logger.error('Error processing parliamentary question', error)
+      request.logger.error(
+        'Error processing parliamentary answer request',
+        error
+      )
 
       return h
-        .view('parliamentary-question/form', {
+        .view('parliamentary-answer/form', {
           pageTitle: 'Generate a written parliamentary answer',
           heading: 'Generate a written parliamentary answer',
           breadcrumbs: [
@@ -93,14 +96,14 @@ export const submitQuestionController = {
               href: '/'
             },
             {
-              text: 'Parliamentary Questions'
+              text: 'Parliamentary Answers'
             }
           ],
           errorSummary: {
             titleText: 'There is a problem',
             errorList: [
               {
-                text: 'Unable to process your question at this time. Please try again later.',
+                text: 'Unable to process your request at this time. Please try again later.',
                 href: '#question'
               }
             ]

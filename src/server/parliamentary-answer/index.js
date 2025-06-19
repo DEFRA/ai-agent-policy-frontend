@@ -1,22 +1,22 @@
-import { showFormController, submitQuestionController } from './controller.js'
+import { showFormController, submitAnswerController } from './controller.js'
 
 /**
  * @satisfies {ServerRegisterPluginObject<void>}
  */
-export const parliamentaryQuestion = {
+export const parliamentaryAnswer = {
   plugin: {
-    name: 'parliamentary-question',
+    name: 'parliamentary-answer',
     register(server) {
       server.route([
         {
           method: 'GET',
-          path: '/parliamentary-question',
+          path: '/parliamentary-answer',
           ...showFormController
         },
         {
           method: 'POST',
-          path: '/parliamentary-question',
-          ...submitQuestionController
+          path: '/parliamentary-answer',
+          ...submitAnswerController
         }
       ])
     }
