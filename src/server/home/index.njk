@@ -7,7 +7,7 @@
 {% block content %}
   {{ appHeading({
     text: heading,
-    caption: "A generative AI agent workflow to help draft parliamentary questions by analysing past approved responses"
+    caption: "A generative AI agent assistant for policy communications"
   }) }}
 
   <div class="govuk-grid-row">
@@ -17,10 +17,10 @@
       <div class="govuk-inset-text" data-testid="app-main-cta">
         <h2 class="govuk-heading-m">Generate a written parlimentary answer</h2>
         <p class="govuk-body">
-          Use AI-powered insights to search past parliamentary questions and help draft responses.
+          Use AI-powered insights to search past parliamentary answers and help draft responses.
         </p>
         
-        <a href="/parliamentary-question" 
+        <a href="/parliamentary-answer" 
            role="button" 
            draggable="false" 
            class="govuk-button govuk-button--start" 
@@ -76,18 +76,18 @@
       {{ govukDetails({
         summaryText: "How it works",
         html: '
-          <p>When you submit a parliamentary question, our AI system will:</p>
+          <p>When you submit a parliamentary answer request, our AI system will:</p>
           <ul class="govuk-list govuk-list--bullet">
-            <li>Search through existing policy documents and past PQs</li>
+            <li>Search through existing policy documents and past parliamentary answers</li>
             <li>Find relevant information and precedents</li>
             <li>Filter and highlight key information</li>
             <li>Generate a draft response based on past examples</li>
             <li>Quality check the response for tone, facts, and clarity</li>
             <li>Adapt and improve based on quality assessment</li>
             <li>Provide a template answer with supporting information</li>
-            <li>Re-entering the same question can generate different final results</li>
+            <li>Re-entering the same request can generate different final results</li>
           </ul>
-          <p class="govuk-body-s">This service is designed to assist with parliamentary question preparation and does not replace official guidance or procedures.</p>
+          <p class="govuk-body-s">This service is designed to assist with parliamentary answer preparation and does not replace official guidance or procedures.</p>
         '
       }) }}
 
