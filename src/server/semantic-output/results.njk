@@ -14,7 +14,7 @@
     <div class="govuk-grid-column-full">
       
       {% if data and data.query %}
-        <h2 class="govuk-heading-m">Your answer</h2>
+        <h2 class="govuk-heading-m">Your question</h2>
         {{ govukInsetText({
           text: data.query
         }) }}
@@ -23,7 +23,7 @@
       {% if data and data.final_answer %}
         <h2 class="govuk-heading-m">Suggested answer</h2>
         <div class="govuk-body" data-testid="final-answer">
-          <p class="govuk-body-s">Answer is based on facts and past PQs for similar topics.</p>
+          <p class="govuk-body-s">A draft answer based on past PQs for similar topics. The response should be checked and edited by a policy expert before finalising.</p>
           <div class="govuk-!-margin-bottom-6">
             {{ data.final_answer | safe }}
           </div>
